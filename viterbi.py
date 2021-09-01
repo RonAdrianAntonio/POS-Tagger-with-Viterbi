@@ -55,10 +55,19 @@ def main(transName, emiName, startProbName, posTagsName):
     for x in viterbiMaxPrevState:
         print([posArr[y] for y in x])
 
+    print("\nSymbol Idx:")
+    for x in viterbiMaxPrevState:
+        print([y for y in x])
+
     finalList = []
+    finalStateSigma = viterbiArr[len(viterbiMaxPrevState)-1]
+    finalStateIdx = finalStateSigma.index(max(finalStateSigma))+1
+    
     for currPos in range(len(OBVS)-1, -1, -1):
-        maxIdx = max(viterbiArr[currPos])
-        print(maxIdx)
+        finalList.append(posArr[finalStateIdx])
+        finalStateIdx = viterbiMaxPrevState[currPos][finalStateIdx -1]
+
+    finalList.reverse()
                 
 
     print("\nFinal Result:")
