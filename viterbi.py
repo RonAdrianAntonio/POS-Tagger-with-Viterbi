@@ -13,7 +13,7 @@ def getMaxState(row, transitions, currentState):
             currMaxIdx = idx
     return maxVal, currMaxIdx
 
-def main(transName, emiName, startProbName):
+def main(transName, emiName, startProbName, posTagsName):
     with open(transName, 'r') as transFile:
         transArr = [[float(x) for x in line.split()] for line in transFile.read().split('\n') if len(line) > 0]
     #for x in transArr:
@@ -28,6 +28,8 @@ def main(transName, emiName, startProbName):
         startArr = [float(x) for x in strtFile.read().split()]
     #for x in startArr:
     #    print(x)
+    with open(posTagsName, 'r') as posFile:
+        posArr = [x for x in posFile.read().split()]
 
 
     viterbiArr = [[0.0 for symbol in range(len(transArr))] for state in range(NUMBER_OF_OBVS)]
@@ -43,7 +45,7 @@ def main(transName, emiName, startProbName):
             for currStateIdx in range(len(emiArr)):
                 maxVal, maxIdx = getMaxState(viterbiArr[currIdx-1], transArr, currStateIdx)
                 viterbiArr[currIdx][currStateIdx] = emiArr[currStateIdx][OBVS[currIdx]] * maxVal
-                viterbiMaxPrevState[currIdx][currStateIdx] = 'y'+str(maxIdx+1)
+                viterbiMaxPrevState[currIdx][currStateIdx] = posArr[maxIdx]#'y'+str(maxIdx+1)
 
     for x in viterbiArr:
         print(x)
@@ -56,4 +58,4 @@ def main(transName, emiName, startProbName):
 
 
 if __name__ == '__main__':
-    main(sys.argv[1], sys.argv[2], sys.argv[3])
+    main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
