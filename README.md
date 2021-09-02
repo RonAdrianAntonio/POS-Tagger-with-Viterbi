@@ -13,4 +13,9 @@ The sample HMM given in the DNA folder from sampleHMMs is from:
 Borodovsky & Ekisheva (2006), pp 80-81
 
 
+<h2>TODO:</h2>
+<ul>
+<li>Add better comments</li>
+<li>Viterbi Log Implementation</li>
+</ul>
 
