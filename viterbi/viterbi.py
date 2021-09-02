@@ -38,7 +38,9 @@ class viterbi:
 
 
 
-    def run(self, observation):
+    def run(self, obvsString):
+
+        observation = obvsStringToInt(obvsString)
 
         viterbiArr = [[0.0 for symbol in range(len(self.transArr))] for state in range(len(observation))]
         viterbiMaxPrevState = [[-1 for symbol in range(len(self.transArr))] for state in range(len(observation))]
