@@ -4,13 +4,6 @@ class viterbi:
     transArr, emiArr, startArr, posArr, symArr = [], [], [], [], []
 
 
-    def __init__(self, transName, emiName, startProbName, posTagsName, symbolsName):
-
-
-        transArr, emiArr, startArr, posArr, symArr = filesToArrays(transName, emiName, startProbName, posTagsName, symbolsName)
-
-
-
     def filesToArrays(self, transName, emiName, startProbName, posTagsName, symbolsName):
 
         with open(transName, 'r') as transFile:
@@ -30,22 +23,34 @@ class viterbi:
 
         return transArr, emiArr, startArr, posArr, symArr
 
+
+
+    def __init__(self, transName, emiName, startProbName, posTagsName, symbolsName):
+
+
+        self.transArr, self.emiArr, self.startArr, self.posArr, self.symArr = self.filesToArrays(transName, emiName, startProbName, posTagsName, symbolsName)
+
+
+
+
     def run(self, observation):
 
-        viterbiArr = [[0.0 for symbol in range(len(transArr))] for state in range(len(observation))]
-        viterbiMaxPrevState = [[-1 for symbol in range(len(transArr))] for state in range(len(observation))]
+        viterbiArr = [[0.0 for symbol in range(len(self.transArr))] for state in range(len(observation))]
+        viterbiMaxPrevState = [[-1 for symbol in range(len(self.transArr))] for state in range(len(observation))]
 
         for currIdx in range(len(viterbiArr)):
             if currIdx < 1:
-                for currStateIdx in range(len(emiArr)):
-                    viterbiArr[currIdx][currStateIdx] = emiArr[currStateIdx][observation[currIdx]] * startArr[currStateIdx]
+                for currStateIdx in range(len(self.emiArr)):
+                    print(self.emiArr)
+                    print(self.startArr)
+                    viterbiArr[currIdx][currStateIdx] = self.emiArr[currStateIdx][observation[currIdx]] * self.startArr[currStateIdx]
                     viterbiMaxPrevState[currIdx][currStateIdx] = 0
                 #print(viterbiArr[0])
             else:
-                for currStateIdx in range(len(emiArr)):
-                    maxVal, maxIdx = getMaxState(viterbiArr[currIdx-1], transArr, currStateIdx)
-                    viterbiArr[currIdx][currStateIdx] = emiArr[currStateIdx][observation[currIdx]] * maxVal
-                    viterbiMaxPrevState[currIdx][currStateIdx] = maxIdx + 1#'y'+str(maxIdx+1)
+                for currStateIdx in range(len(self.emiArr)):
+                    maxVal, maxIdx = getMaxState(viterbiArr[currIdx-1], self.transArr, currStateIdx)
+                    viterbiArr[currIdx][currStateIdx] = self.emiArr[currStateIdx][observation[currIdx]] * maxVal
+                    viterbiMaxPrevState[currIdx][currStateIdx] = maxIdx + 1
 
 
         print("Table:")
