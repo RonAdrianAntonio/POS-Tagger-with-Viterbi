@@ -30,6 +30,11 @@ class viterbi:
 
         self.transArr, self.emiArr, self.startArr, self.posArr, self.symArr = self.filesToArrays(transName, emiName, startProbName, posTagsName, symbolsName)
 
+    def obvsStringToInt(self, observation):
+
+
+        return [self.symArr.index(x) for x in [y for y in observation]]
+
 
 
 
