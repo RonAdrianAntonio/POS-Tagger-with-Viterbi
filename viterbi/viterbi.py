@@ -2,24 +2,6 @@ import sys
 class viterbi:
     
 
-    def filesToArrays(transName, emiName, startProbName, posTagsName, symbolsName):
-
-        with open(transName, 'r') as transFile:
-            transArr = [[float(x) for x in line.split()] for line in transFile.read().split('\n') if len(line) > 0]
-
-        with open(emiName, 'r') as emiFile:
-            emiArr = [[float(x) for x in line.split()] for line in emiFile.read().split('\n') if len(line) > 0]
-        
-        with open(startProbName, 'r') as strtFile:
-            startArr = [float(x) for x in strtFile.read().split()]
-
-        with open(posTagsName, 'r') as posFile:
-            posArr = ['NaN'] + [x for x in posFile.read().split()]
-
-        with open(symbolsName, 'r') as symFile:
-            symArr = [x for x in symFile.read().split()]
-
-        return transArr, emiArr, startArr, posArr, symArr
 
     def viterbi(transName, emiName, startProbName, posTagsName, symbolsName):
 
@@ -76,6 +58,24 @@ class viterbi:
         print("\nFinal Result:")
         print(finalList)
 
+    def filesToArrays(transName, emiName, startProbName, posTagsName, symbolsName):
+
+        with open(transName, 'r') as transFile:
+            transArr = [[float(x) for x in line.split()] for line in transFile.read().split('\n') if len(line) > 0]
+
+        with open(emiName, 'r') as emiFile:
+            emiArr = [[float(x) for x in line.split()] for line in emiFile.read().split('\n') if len(line) > 0]
+        
+        with open(startProbName, 'r') as strtFile:
+            startArr = [float(x) for x in strtFile.read().split()]
+
+        with open(posTagsName, 'r') as posFile:
+            posArr = ['NaN'] + [x for x in posFile.read().split()]
+
+        with open(symbolsName, 'r') as symFile:
+            symArr = [x for x in symFile.read().split()]
+
+        return transArr, emiArr, startArr, posArr, symArr
 
     def getMaxState(row, transitions, currentState):
         maxVal = float('-inf')
