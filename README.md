@@ -9,4 +9,8 @@ python3 main.py <transition matrix file> <emission matrix file> <start probabili
 
 
 
+The sample HMM given in the DNA folder from sampleHMMs is from:
+Borodovsky & Ekisheva (2006), pp 80-81
+
+
 
