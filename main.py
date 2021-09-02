@@ -2,8 +2,8 @@ import sys
 from viterbi.viterbi import viterbi as vt
 
 
-def main(transName, emiName, startProbName, posTagsName, symbolsName):
-    viter = vt(transName, emiName, startProbName, posTagsName, symbolsName)
+def main(transName, emiName, startProbName, statesName, symbolsName):
+    viter = vt(transName, emiName, startProbName, statesName, symbolsName)
 
     print("Welcome to my Viterbi implementation!")
     while True:

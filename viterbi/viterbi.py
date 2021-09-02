@@ -1,10 +1,10 @@
 import sys
 class viterbi:
     
-    transArr, emiArr, startArr, posArr, symArr = [], [], [], [], []
+    transArr, emiArr, startArr, statesArr, symArr = [], [], [], [], []
 
 
-    def filesToArrays(self, transName, emiName, startProbName, posTagsName, symbolsName):
+    def filesToArrays(self, transName, emiName, startProbName, statesName, symbolsName):
 
         with open(transName, 'r') as transFile:
             transArr = [[float(x) for x in line.split()] for line in transFile.read().split('\n') if len(line) > 0]
@@ -15,20 +15,20 @@ class viterbi:
         with open(startProbName, 'r') as strtFile:
             startArr = [float(x) for x in strtFile.read().split()]
 
-        with open(posTagsName, 'r') as posFile:
-            posArr = ['NaN'] + [x for x in posFile.read().split()]
+        with open(statesName, 'r') as statesFile:
+            statesArr = ['NaN'] + [x for x in statesFile.read().split()]
 
         with open(symbolsName, 'r') as symFile:
             symArr = [x for x in symFile.read().split()]
 
-        return transArr, emiArr, startArr, posArr, symArr
+        return transArr, emiArr, startArr, statesArr, symArr
 
 
 
-    def __init__(self, transName, emiName, startProbName, posTagsName, symbolsName):
+    def __init__(self, transName, emiName, startProbName, statesName, symbolsName):
 
 
-        self.transArr, self.emiArr, self.startArr, self.posArr, self.symArr = self.filesToArrays(transName, emiName, startProbName, posTagsName, symbolsName)
+        self.transArr, self.emiArr, self.startArr, self.statesArr, self.symArr = self.filesToArrays(transName, emiName, startProbName, statesName, symbolsName)
 
     def obvsStringToInt(self, observation):
 
@@ -67,7 +67,7 @@ class viterbi:
         
         print("\nSymbols:")
         for x in viterbiMaxPrevState:
-            print([self.posArr[y] for y in x])
+            print([self.statesArr[y] for y in x])
 
         print("\nSymbol Idx:")
         for x in viterbiMaxPrevState:
@@ -78,7 +78,7 @@ class viterbi:
         finalStateIdx = finalStateSigma.index(max(finalStateSigma))+1
         
         for currPos in range(len(observation)-1, -1, -1):
-            finalList.append(self.posArr[finalStateIdx])
+            finalList.append(self.statesArr[finalStateIdx])
             finalStateIdx = viterbiMaxPrevState[currPos][finalStateIdx -1]
 
         finalList.reverse()
