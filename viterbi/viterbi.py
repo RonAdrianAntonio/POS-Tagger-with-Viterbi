@@ -4,7 +4,7 @@ class viterbi:
     transArr, emiArr, startArr, posArr, symArr = [], [], [], [], []
 
 
-    def viterbi(transName, emiName, startProbName, posTagsName, symbolsName):
+    def __init__(transName, emiName, startProbName, posTagsName, symbolsName):
 
 
         transArr, emiArr, startArr, posArr, symArr = filesToArray(transName, emiName, startProbName, posTagsName, symbolsName)
