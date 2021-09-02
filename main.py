@@ -1,13 +1,5 @@
 import sys
-def getMaxState(row, transitions, currentState):
-    maxVal = float('-inf')
-    currMaxIdx = -1;
-    for idx in range(len(row)):
-        currentValue = row[idx] * transitions[idx][currentState]
-        if currentValue > maxVal:
-            maxVal = currentValue
-            currMaxIdx = idx
-    return maxVal, currMaxIdx
+
 
 def main(transName, emiName, startProbName, posTagsName, symbolsName):
     print("Please enter the symbol sequence")
