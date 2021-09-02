@@ -13,10 +13,9 @@ def getMaxState(row, transitions, currentState):
             currMaxIdx = idx
     return maxVal, currMaxIdx
 
-def main(transName, emiName, startProbName, posTagsName):
+def main(transName, emiName, startProbName, posTagsName, symbolsName):
     print("Please enter the symbol sequence")
     observation = input()
-
 
     with open(transName, 'r') as transFile:
         transArr = [[float(x) for x in line.split()] for line in transFile.read().split('\n') if len(line) > 0]
@@ -29,6 +28,15 @@ def main(transName, emiName, startProbName, posTagsName):
 
     with open(posTagsName, 'r') as posFile:
         posArr = ['NaN'] + [x for x in posFile.read().split()]
+
+    with open(symbolsName, 'r') as symFile:
+        symArr = [x for x in symFile.read().split()]
+
+    print(symArr)
+
+    observation = [symArr.index(x) for x in [y for y in observation]]
+
+    print(observation)
 
 
     viterbiArr = [[0.0 for symbol in range(len(transArr))] for state in range(len(observation))]
@@ -76,4 +84,4 @@ def main(transName, emiName, startProbName, posTagsName):
 
 
 if __name__ == '__main__':
-    main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+    main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
