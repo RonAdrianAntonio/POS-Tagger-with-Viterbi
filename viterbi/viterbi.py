@@ -1,6 +1,7 @@
 import sys
 class viterbi:
     
+    transArr, emiArr, startArr, posArr, symArr = [], [], [], [], []
 
 
     def viterbi(transName, emiName, startProbName, posTagsName, symbolsName):
