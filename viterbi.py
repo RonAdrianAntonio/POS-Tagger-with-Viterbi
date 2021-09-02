@@ -1,8 +1,4 @@
 import sys
-#below is just number of symbol emitted-1, since this is
-#how it's stored in an array
-#observation = [0, 3, 1, 1, 3]
-#observation = [2, 2, 1, 0, 1, 3, 2, 0, 0]
 def getMaxState(row, transitions, currentState):
     maxVal = float('-inf')
     currMaxIdx = -1;
