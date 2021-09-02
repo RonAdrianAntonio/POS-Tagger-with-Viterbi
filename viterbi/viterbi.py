@@ -40,7 +40,7 @@ class viterbi:
 
     def run(self, obvsString):
 
-        observation = obvsStringToInt(obvsString)
+        observation = self.obvsStringToInt(obvsString)
 
         viterbiArr = [[0.0 for symbol in range(len(self.transArr))] for state in range(len(observation))]
         viterbiMaxPrevState = [[-1 for symbol in range(len(self.transArr))] for state in range(len(observation))]
@@ -55,7 +55,7 @@ class viterbi:
                 #print(viterbiArr[0])
             else:
                 for currStateIdx in range(len(self.emiArr)):
-                    maxVal, maxIdx = getMaxState(viterbiArr[currIdx-1], self.transArr, currStateIdx)
+                    maxVal, maxIdx = self.getMaxState(viterbiArr[currIdx-1], self.transArr, currStateIdx)
                     viterbiArr[currIdx][currStateIdx] = self.emiArr[currStateIdx][observation[currIdx]] * maxVal
                     viterbiMaxPrevState[currIdx][currStateIdx] = maxIdx + 1
 
@@ -67,7 +67,7 @@ class viterbi:
         
         print("\nSymbols:")
         for x in viterbiMaxPrevState:
-            print([posArr[y] for y in x])
+            print([self.posArr[y] for y in x])
 
         print("\nSymbol Idx:")
         for x in viterbiMaxPrevState:
@@ -78,7 +78,7 @@ class viterbi:
         finalStateIdx = finalStateSigma.index(max(finalStateSigma))+1
         
         for currPos in range(len(observation)-1, -1, -1):
-            finalList.append(posArr[finalStateIdx])
+            finalList.append(self.posArr[finalStateIdx])
             finalStateIdx = viterbiMaxPrevState[currPos][finalStateIdx -1]
 
         finalList.reverse()
