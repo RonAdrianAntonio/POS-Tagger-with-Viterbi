@@ -10,6 +10,28 @@ class viterbi:
         transArr, emiArr, startArr, posArr, symArr = filesToArray(transName, emiName, startProbName, posTagsName, symbolsName)
 
 
+
+    def filesToArrays(transName, emiName, startProbName, posTagsName, symbolsName):
+
+        with open(transName, 'r') as transFile:
+            transArr = [[float(x) for x in line.split()] for line in transFile.read().split('\n') if len(line) > 0]
+
+        with open(emiName, 'r') as emiFile:
+            emiArr = [[float(x) for x in line.split()] for line in emiFile.read().split('\n') if len(line) > 0]
+        
+        with open(startProbName, 'r') as strtFile:
+            startArr = [float(x) for x in strtFile.read().split()]
+
+        with open(posTagsName, 'r') as posFile:
+            posArr = ['NaN'] + [x for x in posFile.read().split()]
+
+        with open(symbolsName, 'r') as symFile:
+            symArr = [x for x in symFile.read().split()]
+
+        return transArr, emiArr, startArr, posArr, symArr
+
+    def run(observation):
+
         viterbiArr = [[0.0 for symbol in range(len(transArr))] for state in range(len(observation))]
         viterbiMaxPrevState = [[-1 for symbol in range(len(transArr))] for state in range(len(observation))]
 
@@ -24,6 +46,7 @@ class viterbi:
                     maxVal, maxIdx = getMaxState(viterbiArr[currIdx-1], transArr, currStateIdx)
                     viterbiArr[currIdx][currStateIdx] = emiArr[currStateIdx][observation[currIdx]] * maxVal
                     viterbiMaxPrevState[currIdx][currStateIdx] = maxIdx + 1#'y'+str(maxIdx+1)
+
 
         print("Table:")
         for x in viterbiArr:
@@ -52,24 +75,6 @@ class viterbi:
         print("\nFinal Result:")
         print(finalList)
 
-    def filesToArrays(transName, emiName, startProbName, posTagsName, symbolsName):
-
-        with open(transName, 'r') as transFile:
-            transArr = [[float(x) for x in line.split()] for line in transFile.read().split('\n') if len(line) > 0]
-
-        with open(emiName, 'r') as emiFile:
-            emiArr = [[float(x) for x in line.split()] for line in emiFile.read().split('\n') if len(line) > 0]
-        
-        with open(startProbName, 'r') as strtFile:
-            startArr = [float(x) for x in strtFile.read().split()]
-
-        with open(posTagsName, 'r') as posFile:
-            posArr = ['NaN'] + [x for x in posFile.read().split()]
-
-        with open(symbolsName, 'r') as symFile:
-            symArr = [x for x in symFile.read().split()]
-
-        return transArr, emiArr, startArr, posArr, symArr
 
     def getMaxState(row, transitions, currentState):
         maxVal = float('-inf')
