@@ -4,14 +4,14 @@ class viterbi:
     transArr, emiArr, startArr, posArr, symArr = [], [], [], [], []
 
 
-    def __init__(transName, emiName, startProbName, posTagsName, symbolsName):
+    def __init__(self, transName, emiName, startProbName, posTagsName, symbolsName):
 
 
         transArr, emiArr, startArr, posArr, symArr = filesToArray(transName, emiName, startProbName, posTagsName, symbolsName)
 
 
 
-    def filesToArrays(transName, emiName, startProbName, posTagsName, symbolsName):
+    def filesToArrays(self, transName, emiName, startProbName, posTagsName, symbolsName):
 
         with open(transName, 'r') as transFile:
             transArr = [[float(x) for x in line.split()] for line in transFile.read().split('\n') if len(line) > 0]
@@ -30,7 +30,7 @@ class viterbi:
 
         return transArr, emiArr, startArr, posArr, symArr
 
-    def run(observation):
+    def run(self, observation):
 
         viterbiArr = [[0.0 for symbol in range(len(transArr))] for state in range(len(observation))]
         viterbiMaxPrevState = [[-1 for symbol in range(len(transArr))] for state in range(len(observation))]
@@ -76,7 +76,7 @@ class viterbi:
         print(finalList)
 
 
-    def getMaxState(row, transitions, currentState):
+    def getMaxState(self, row, transitions, currentState):
         maxVal = float('-inf')
         currMaxIdx = -1;
         for idx in range(len(row)):
