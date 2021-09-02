@@ -9,13 +9,6 @@ class viterbi:
         transArr, emiArr, startArr, posArr, symArr = filesToArray(transName, emiName, startProbName, posTagsName, symbolsName)
 
 
-        #print(symArr)
-
-        observation = [symArr.index(x) for x in [y for y in observation]]
-
-        print(observation)
-
-
         viterbiArr = [[0.0 for symbol in range(len(transArr))] for state in range(len(observation))]
         viterbiMaxPrevState = [[-1 for symbol in range(len(transArr))] for state in range(len(observation))]
 
